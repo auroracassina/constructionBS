@@ -156,3 +156,141 @@ services:
     - /bin/bash
     - -c
     - mkdir -p /results && vg version > /results/vg_help.txt 2>&1 || true
+  alfapang:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./
+      dockerfile: Dockerfiles/AlfaPang/Dockerfile
+    volumes:
+    - type: bind
+      source: ./results
+      target: /results
+    - type: bind
+      source: ./input_data
+      target: /input_data
+    command:
+    - /bin/bash
+    - -c
+    - mkdir -p /results && AlfaPang --help > /results/alfapang_help.txt 2>&1 || true
+  bifrost:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./
+      dockerfile: Dockerfiles/Bifrost/Dockerfile
+    volumes:
+    - type: bind
+      source: ./results
+      target: /results
+    - type: bind
+      source: ./input_data
+      target: /input_data
+    command:
+    - /bin/bash
+    - -c
+    - mkdir -p /results && Bifrost --help > /results/bifrost_help.txt 2>&1 || true
+  pangraph:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./
+      dockerfile: Dockerfiles/PanGraph/Dockerfile
+    volumes:
+    - type: bind
+      source: ./results
+      target: /results
+    - type: bind
+      source: ./input_data
+      target: /input_data
+    command:
+    - /bin/bash
+    - -c
+    - mkdir -p /results && pangraph --help > /results/pangraph_help.txt 2>&1 || true
+  pantools:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./
+      dockerfile: Dockerfiles/PanTools/Dockerfile
+    volumes:
+    - type: bind
+      source: ./results
+      target: /results
+    - type: bind
+      source: ./input_data
+      target: /input_data
+    command:
+    - /bin/bash
+    - -c
+    - mkdir -p /results && pantools help > /results/pantools_help.txt 2>&1 || true
+  pgrtk:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./
+      dockerfile: Dockerfiles/pgrtk/Dockerfile
+    volumes:
+    - type: bind
+      source: ./results
+      target: /results
+    - type: bind
+      source: ./input_data
+      target: /input_data
+    command:
+    - /bin/bash
+    - -c
+    - mkdir -p /results && for b in $$(compgen -c pgr- | sort -u); do echo "=== $$b";
+      timeout 10 $$b --help 2>&1; echo; done > /results/pgrtk_help.txt 2>&1 || true
+  rust-mdbg:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./
+      dockerfile: Dockerfiles/rust-mdbg/Dockerfile
+    volumes:
+    - type: bind
+      source: ./results
+      target: /results
+    - type: bind
+      source: ./input_data
+      target: /input_data
+    command:
+    - /bin/bash
+    - -c
+    - mkdir -p /results && rust-mdbg --help > /results/rust-mdbg_help.txt 2>&1 ||
+      true
+  seqwish:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./
+      dockerfile: Dockerfiles/seqwish/Dockerfile
+    volumes:
+    - type: bind
+      source: ./results
+      target: /results
+    - type: bind
+      source: ./input_data
+      target: /input_data
+    command:
+    - /bin/bash
+    - -c
+    - mkdir -p /results && seqwish --help > /results/seqwish_help.txt 2>&1 || true
+  twopaco:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./
+      dockerfile: Dockerfiles/TwoPaCo/Dockerfile
+    volumes:
+    - type: bind
+      source: ./results
+      target: /results
+    - type: bind
+      source: ./input_data
+      target: /input_data
+    command:
+    - /bin/bash
+    - -c
+    - mkdir -p /results && twopaco --help > /results/twopaco_help.txt 2>&1 || true

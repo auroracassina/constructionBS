@@ -272,3 +272,9 @@ the code hardcodes dataset names.
 5. Validate: `--dry-run` against the runbook, then a real run compared to the
    validated baseline (md5 for deterministic tools, structural S/L/P/W + bp +
    sample names for non-deterministic ones).
+
+## Additional tools (AlfaPang, Bifrost, PanGraph, PanTools, pgrtk, rust-mdbg, seqwish, TwoPaCo)
+
+Custom Dockerfiles are maintained in `Dockerfiles/<Tool>/`, while all tool and service specifications are centralized in `tool_registry.py`. Each service writes its tool help output to `results/`.
+
+`make_dockerfiles.py` only resets the folders of tools defined in `tools_config.yml`, so these custom Dockerfiles are not overwritten.

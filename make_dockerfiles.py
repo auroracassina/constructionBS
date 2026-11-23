@@ -214,9 +214,10 @@ def main():
     dockerfiles_folder = os.path.join(os.getcwd(), 'Dockerfiles')
     os.chdir(dockerfiles_folder)
 
-    folder_list = [f for f in Path(dockerfiles_folder).glob('**/*') if not f.is_file()]
-    for directory in folder_list:
-        shutil.rmtree(os.path.join(dockerfiles_folder, directory))
+    for tool in config:
+        tool_dir = os.path.join(dockerfiles_folder, tool)
+        if os.path.isdir(tool_dir):
+            shutil.rmtree(tool_dir)
 
     for tool in config:
         os.makedirs(tool)

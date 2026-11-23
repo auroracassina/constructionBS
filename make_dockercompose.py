@@ -38,7 +38,13 @@ def build_docker_compose_services(config: dict) -> dict[str, dict]:
     """
     services: dict[str, dict] = {}
 
-    for tool_name in config:
+    additional_tools = [
+        tool_name
+        for tool_name in TOOL_SERVICE_SPECS
+        if tool_name not in config and tool_name != "MC_vg"
+    ]
+
+    for tool_name in [*config, *additional_tools]:
         service_name, service_definition = build_service_definition(tool_name)
         services[service_name] = service_definition
 

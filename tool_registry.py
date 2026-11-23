@@ -166,12 +166,46 @@ TOOL_REGISTRY = {
         "requirements": {"required_dirs": ["META"]},
         "input_specs": {},
     },
+    'AlfaPang': {'service': {'service_name': 'alfapang',
+             'dockerfile': 'Dockerfiles/AlfaPang/Dockerfile',
+             'command': 'mkdir -p /results && AlfaPang --help > /results/alfapang_help.txt 2>&1 || '
+                        'true'}},
+    'Bifrost': {'service': {'service_name': 'bifrost',
+             'dockerfile': 'Dockerfiles/Bifrost/Dockerfile',
+             'command': 'mkdir -p /results && Bifrost --help > /results/bifrost_help.txt 2>&1 || '
+                        'true'}},
+    'PanGraph': {'service': {'service_name': 'pangraph',
+             'dockerfile': 'Dockerfiles/PanGraph/Dockerfile',
+             'command': 'mkdir -p /results && pangraph --help > /results/pangraph_help.txt 2>&1 || '
+                        'true'}},
+    'PanTools': {'service': {'service_name': 'pantools',
+             'dockerfile': 'Dockerfiles/PanTools/Dockerfile',
+             'command': 'mkdir -p /results && pantools help > /results/pantools_help.txt 2>&1 || '
+                        'true'}},
+    'pgrtk': {'service': {'service_name': 'pgrtk',
+             'dockerfile': 'Dockerfiles/pgrtk/Dockerfile',
+             'command': 'mkdir -p /results && for b in $$(compgen -c pgr- | sort -u); do echo "=== '
+                        '$$b"; timeout 10 $$b --help 2>&1; echo; done > /results/pgrtk_help.txt '
+                        '2>&1 || true'}},
+    'rust-mdbg': {'service': {'service_name': 'rust-mdbg',
+             'dockerfile': 'Dockerfiles/rust-mdbg/Dockerfile',
+             'command': 'mkdir -p /results && rust-mdbg --help > /results/rust-mdbg_help.txt 2>&1 '
+                        '|| true'}},
+    'seqwish': {'service': {'service_name': 'seqwish',
+             'dockerfile': 'Dockerfiles/seqwish/Dockerfile',
+             'command': 'mkdir -p /results && seqwish --help > /results/seqwish_help.txt 2>&1 || '
+                        'true'}},
+    'TwoPaCo': {'service': {'service_name': 'twopaco',
+             'dockerfile': 'Dockerfiles/TwoPaCo/Dockerfile',
+             'command': 'mkdir -p /results && twopaco --help > /results/twopaco_help.txt 2>&1 || '
+                        'true'}},
 }
 
 
 EXPECTED_SOURCE_BY_TOOL = {
     tool_name: tool_spec["source"]
     for tool_name, tool_spec in TOOL_REGISTRY.items()
+    if "source" in tool_spec
 }
 
 TOOL_SERVICE_SPECS = {
@@ -182,9 +216,11 @@ TOOL_SERVICE_SPECS = {
 TOOL_REQUIREMENTS = {
     tool_name: tool_spec["requirements"]
     for tool_name, tool_spec in TOOL_REGISTRY.items()
+    if "requirements" in tool_spec
 }
 
 TOOL_INPUT_SPECS = {
     tool_name: tool_spec["input_specs"]
     for tool_name, tool_spec in TOOL_REGISTRY.items()
+    if "input_specs" in tool_spec
 }
